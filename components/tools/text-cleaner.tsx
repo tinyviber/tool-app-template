@@ -59,7 +59,10 @@ export function TextCleaner({ example }: ToolComponentProps) {
   })
 
   useEffect(() => {
-    if (example) setInput(example.input)
+    if (example) {
+      setInput(example.input)
+      setOutput("")
+    }
   }, [example])
 
   function handleSubmit(event: React.FormEvent) {

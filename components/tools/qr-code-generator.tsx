@@ -17,7 +17,10 @@ export function QRCodeGenerator({ example }: ToolComponentProps) {
   const [error, setError] = useState("")
 
   useEffect(() => {
-    if (example) setText(example.input)
+    if (example) {
+      setText(example.input)
+      setEncoded("")
+    }
   }, [example])
 
   async function handleSubmit(event: React.FormEvent) {

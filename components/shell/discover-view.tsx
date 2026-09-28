@@ -57,7 +57,7 @@ export function DiscoverView({
         className="relative"
         onSubmit={(event) => {
           event.preventDefault()
-          const first = searched[0]
+          const first = visible[0]
           if (first) onSelect(first.id)
         }}
       >
@@ -104,9 +104,9 @@ export function DiscoverView({
 
       {query ? (
         <p className="text-sm text-muted-foreground" aria-live="polite">
-          {searched.length} result{searched.length === 1 ? "" : "s"} for{" "}
+          {visible.length} result{visible.length === 1 ? "" : "s"} for{" "}
           <span className="font-medium text-foreground">{`"${query}"`}</span>
-          {searched.length > 0 ? " · press Enter to open the first one" : null}
+          {visible.length > 0 ? " · press Enter to open the first one" : null}
         </p>
       ) : null}
 
