@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import { SparklesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -46,7 +46,7 @@ function cleanText(input: string, options: Record<OptionKey, boolean>) {
   return output.trim()
 }
 
-export function TextCleaner({ onRun }: ToolComponentProps) {
+export function TextCleaner({ example }: ToolComponentProps) {
   const inputId = useId()
   const outputId = useId()
   const [input, setInput] = useState("")
@@ -58,17 +58,20 @@ export function TextCleaner({ onRun }: ToolComponentProps) {
     trimLines: true,
   })
 
+  useEffect(() => {
+    if (example) setInput(example.input)
+  }, [example])
+
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
     if (!input.trim()) return
     setOutput(cleanText(input, options))
-    onRun()
   }
 
   const removed = output ? input.length - output.length : 0
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="flex flex-col gap-4">
       <ToolPanel title="Input">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <FieldGroup className="gap-4">
@@ -81,7 +84,7 @@ export function TextCleaner({ onRun }: ToolComponentProps) {
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
                 placeholder="Paste messy text here…"
-                className="min-h-56 resize-y font-mono text-sm"
+                className="min-h-40 resize-y font-mono text-sm"
                 autoFocus
               />
             </Field>
@@ -134,7 +137,7 @@ export function TextCleaner({ onRun }: ToolComponentProps) {
           value={output}
           readOnly
           placeholder="Cleaned text appears here."
-          className="min-h-56 resize-y bg-muted/40 font-mono text-sm"
+          className="min-h-40 resize-y bg-muted/40 font-mono text-sm"
         />
       </ToolPanel>
     </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useRef, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 import QRCode from "qrcode"
 import { DownloadIcon, QrCodeIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,12 +9,16 @@ import { Input } from "@/components/ui/input"
 import { ToolPanel } from "./tool-panel"
 import type { ToolComponentProps } from "./types"
 
-export function QRCodeGenerator({ onRun }: ToolComponentProps) {
+export function QRCodeGenerator({ example }: ToolComponentProps) {
   const inputId = useId()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [text, setText] = useState("")
   const [encoded, setEncoded] = useState("")
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    if (example) setText(example.input)
+  }, [example])
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
@@ -29,7 +33,6 @@ export function QRCodeGenerator({ onRun }: ToolComponentProps) {
       })
       setEncoded(value)
       setError("")
-      onRun()
     } catch {
       setEncoded("")
       setError("That text is too long to fit in a QR code.")
@@ -46,7 +49,7 @@ export function QRCodeGenerator({ onRun }: ToolComponentProps) {
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
+    <div className="flex flex-col gap-4">
       <ToolPanel title="Input">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <FieldGroup>

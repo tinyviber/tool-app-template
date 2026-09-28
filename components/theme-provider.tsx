@@ -1,10 +1,11 @@
 "use client"
 
 import { createContext, useCallback, useContext, useSyncExternalStore } from "react"
+import { site } from "@/data/site"
 
 type Theme = "light" | "dark"
 
-export const THEME_STORAGE_KEY = "trendtool:theme"
+export const THEME_STORAGE_KEY = `${site.name.toLowerCase().replace(/[^a-z0-9]+/g, "")}:theme`
 
 export const themeInitScript = `(function(){try{var t=localStorage.getItem('${THEME_STORAGE_KEY}');if(t){t=JSON.parse(t)}if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}var d=document.documentElement;d.classList.remove('light','dark');d.classList.add(t);d.style.colorScheme=t}catch(e){}})()`
 
