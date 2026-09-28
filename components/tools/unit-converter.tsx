@@ -127,7 +127,7 @@ function UnitSelect({
   )
 }
 
-export function UnitConverter({ onRun }: ToolComponentProps) {
+export function UnitConverter(_props: ToolComponentProps) {
   const baseId = useId()
   const [category, setCategory] = useState<Category>("length")
   const [from, setFrom] = useState(DEFAULTS.length[0])
@@ -162,7 +162,6 @@ export function UnitConverter({ onRun }: ToolComponentProps) {
       to,
       category,
     })
-    onRun()
   }
 
   const symbolFor = (cat: Category, unit: string) =>
@@ -173,7 +172,7 @@ export function UnitConverter({ onRun }: ToolComponentProps) {
     : ""
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
+    <div className="flex flex-col gap-4">
       <ToolPanel title="Input">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <FieldGroup className="gap-4">

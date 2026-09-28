@@ -1,9 +1,9 @@
-import { trends, type TrendingTool } from "@/data/trends"
+import { tools, type Tool } from "@/data/tools"
 
 /**
  * Single entry point for tool metadata. Swap the body for a `fetch()` to a
- * real trends API later — callers already treat it as async.
+ * real source later — callers already treat it as async.
  */
-export async function getTools(): Promise<TrendingTool[]> {
-  return trends
+export async function getTools(): Promise<Tool[]> {
+  return tools
 }

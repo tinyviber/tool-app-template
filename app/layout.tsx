@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { ThemeProvider, themeInitScript } from '@/components/theme-provider'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { site } from '@/data/site'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -12,10 +13,8 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'TrendTool — Fast, focused utilities',
-  description:
-    'Trending one-job utilities: clean text, convert units, generate QR codes. No sign-up, results in seconds.',
-  generator: 'v0.app',
+  title: `${site.name} — ${site.tagline}`,
+  description: site.description,
   icons: {
     icon: [
       {
